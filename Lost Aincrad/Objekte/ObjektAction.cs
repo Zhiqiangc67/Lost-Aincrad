@@ -8,5 +8,6 @@ namespace Lost_Aincrad.Objekte
 {
     internal class ObjektAction
     {
+
     }
 }

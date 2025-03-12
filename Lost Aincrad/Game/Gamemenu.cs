@@ -1,132 +1,88 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading;
-
-class Program
+using Lost_Aincrad.Game;
+namespace Lost_Aincrad
 {
+        // Gemeinsame Basis-Klasse
 
-    static void Main()
+
+    // GameMenu erbt von GameBase
+    internal class GameMenu : GameBase
     {
-        Console.Title = ("𝑳𝑶𝑺𝑻 𝑨𝑰𝑵𝑪𝑹𝑨𝑫");
-
-        Console.WriteLine("Willkommen in Lost Aincrad!");
-
-        Thread.Sleep(2000);
-        Console.Clear();
-
-        Console.WriteLine("Wie Lautet ihr Name?");
-        string name = Console.ReadLine();
-        Console.Clear();
-
-        Console.WriteLine($"Oh,Ihr Name Lautet {name}, wie schön!");
-        Thread.Sleep(2000);
-        Console.WriteLine("");
-        Console.WriteLine($"Ich Skibidi Sigma, hoffe auf eine Angenehme Reise {name}!");
-        Console.WriteLine("");
-        Console.WriteLine("Press a Key.....");
-        Console.ReadKey();
-        Console.Clear();
-
-
-        string[] klassenListe = { "Assassine", "Berserker", "Neko" }; // Mögliche Klassen
-        string Klasse;
-        bool isValidInput = false;
-        Random random = new Random();
-
-        while (!isValidInput)
+        public void Start()
         {
-            Console.WriteLine("Wählen Sie Ihre Klasse =^._.^=");
-            Console.WriteLine("");
-            Console.WriteLine("Sie haben die Wahl zwischen:");
-            Console.WriteLine("---------------------------");
+            Console.Title = "𝑳𝑶𝑺𝑻 𝑨𝑰𝑵𝑪𝑹𝑨𝑫";
+            Console.WriteLine("Willkommen in Lost Aincrad!");
+            Thread.Sleep(2000);
+            Console.Clear();
 
-            Thread.Sleep(1000);
+            Console.Write("Wie lautet Ihr Name? ");
+            SpielerName = Console.ReadLine()?.Trim();
+            Console.Clear();
 
-            Console.WriteLine("Assassine");
-            Thread.Sleep(1000);
-            Console.WriteLine("---------");
-            Console.WriteLine("Berserker");
-            Thread.Sleep(1000);
-            Console.WriteLine("---------");
-            Console.WriteLine("Neko");
-            Console.WriteLine("");
-            Thread.Sleep(1000);
-            Console.WriteLine("oder");
-            Thread.Sleep(1000);
-            Console.WriteLine("");
-            Console.WriteLine("Zufall");
-            Console.WriteLine("");
+            Console.WriteLine($"Oh, Ihr Name lautet {SpielerName}, wie schön!");
+            Thread.Sleep(2000);
 
-            Console.Write("Was wählen Sie? ");
-            Console.WriteLine("");
-            Klasse = Console.ReadLine();
+            // Klassenwahl
+            string[] klassenListe = { "Assassine", "Berserker", "Neko" };
+            bool isValidInput = false;
+            Random random = new Random();
 
-            // Falls der Benutzer "Zufall" wählt, wird eine zufällige Klasse bestimmt
-            if (Klasse.ToLower() == "zufall")
-            {
-                Klasse = klassenListe[random.Next(klassenListe.Length)];
-                Console.Clear();
-                Console.WriteLine($"Die zufällig gewählte Klasse ist: {Klasse}");
-                Thread.Sleep(2000);
-            }
-
-            // Prüfe, ob die Eingabe gültig ist
-            if (Klasse == "Assassine" || Klasse == "Berserker" || Klasse == "Neko")
+            while (!isValidInput)
             {
                 Console.Clear();
-                Console.WriteLine($"Sie haben {Klasse} gewählt. Sind Sie sicher? (Ja/Nein)");
-                string confirmation = Console.ReadLine();
+                Console.WriteLine("Wählen Sie Ihre Klasse =^._.^=");
+                Console.WriteLine("Assassine | Berserker | Neko | Zufall");
 
-                if (confirmation.ToLower() == "ja")
+                SpielerKlasse = Console.ReadLine()?.Trim();
+                if (SpielerKlasse.ToLower() == "zufall")
+                {
+                    SpielerKlasse = klassenListe[random.Next(klassenListe.Length)];
+                    Console.WriteLine($"Die zufällig gewählte Klasse ist: {SpielerKlasse}");
+                    Console.Clear();
+                }
+
+                if (Array.Exists(klassenListe, k => k == SpielerKlasse))
                 {
                     isValidInput = true;
-                    Console.Clear();
-                    Console.WriteLine($"Super, Sie sind ein {Klasse}!");
+
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Okay, dann wählen Sie noch einmal.");
+                    Console.WriteLine("Ungültige Eingabe. Bitte erneut wählen.");
                     Thread.Sleep(2000);
                     Console.Clear();
                 }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Ungültige Eingabe, bitte wählen Sie eine der angegebenen Klassen.");
-                Thread.Sleep(2000);
-                Console.Clear();
-            }
-        }
+                // NEUE SCHLEIFE für die "Bereit"-Abfrage
+                bool bereitIstValid = false;
 
-        Thread.Sleep(2000);
+                while (!bereitIstValid)
+                {
+                    Console.WriteLine("Sind Sie bereit für die Welt von Aincrad? (Ja/Nein)");
+                    string bereit = Console.ReadLine().ToLower();
 
-        // NEUE SCHLEIFE für die "Bereit"-Abfrage
-        bool bereitIstValid = false;
+                    if (bereit == "ja")
+                    {
+                        Console.WriteLine("Die Reise beginnt jetzt!");
+                        bereitIstValid = true;
+                        Console.Clear();
+                    }
+                    else if (bereit == "nein")
+                    {
+                        Console.WriteLine("Dann bereiten Sie sich vor... Wir warten auf Sie.");
+                        bereitIstValid = true;
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ungültige Eingabe. Bitte antworten Sie mit 'Ja' oder 'Nein'.");
+                        Thread.Sleep(2000);
+                        Console.Clear();
+                    }
 
-        while (!bereitIstValid)
-        {
-            Console.WriteLine("Sind Sie bereit für die Welt von Aincrad? (Ja/Nein)");
-            string bereit = Console.ReadLine().ToLower();
-
-            if (bereit == "ja")
-            {
-                Console.WriteLine("Die Reise beginnt jetzt!");
-                bereitIstValid = true;
+                    Begrüßung();
+                }
             }
-            else if (bereit == "nein")
-            {
-                Console.WriteLine("Dann bereiten Sie sich vor... Wir warten auf Sie.");
-                bereitIstValid = true;
-            }
-            else
-            {
-                Console.WriteLine("Ungültige Eingabe. Bitte antworten Sie mit 'Ja' oder 'Nein'.");
-                Thread.Sleep(2000);
-                Console.Clear();
-            }
-
         }
     }
 }
