@@ -1,6 +1,7 @@
 ﻿using Lost_Aincrad;
+using Lost_Aincrad.Game;
 
-internal class ObjectMenu : GameAction
+internal class ObjectMenu : GameBase
 {
     // Konstruktor implementieren
     public ObjectMenu(string spielerName, string spielerKlasse) : base(spielerName, spielerKlasse)
@@ -67,7 +68,6 @@ internal class ObjectMenu : GameAction
         Console.WriteLine("Der Pfad führt zu einem geheimen Lager.");
         Console.WriteLine("Möchten Sie das Lager betreten? (Ja/Nein)");
         string lager = GetUserInput("").ToLower();
-        Bewegung();
 
         if (lager == "ja")
         {
@@ -88,7 +88,6 @@ internal class ObjectMenu : GameAction
     {
         Console.WriteLine("Sie befinden sich vor einer alten Ruine...");
         string ruine = GetUserInput("Möchten Sie die Ruine betreten? (Ja/Nein)").ToLower();
-        Bewegung();
 
         if (ruine == "ja")
         {
@@ -109,7 +108,6 @@ internal class ObjectMenu : GameAction
         Console.WriteLine("Sie finden eine Schatztruhe und öffnen sie.");
         Console.WriteLine("Sie finden eine Karte und ein Schwert.");
         string option = GetUserInput("Was möchten Sie tun? (Karte/Schwert)").ToLower();
-        Bewegung();
 
         if (option == "karte")
         {
@@ -138,4 +136,3 @@ internal class ObjectMenu : GameAction
         return input ?? string.Empty;
     }
 }
-   

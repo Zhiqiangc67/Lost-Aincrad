@@ -6,18 +6,28 @@ using System.Threading.Tasks;
 
 namespace Lost_Aincrad.Game
 {
-     
-    
-        // Gemeinsame Basis-Klasse
-        public class GameBase
-        {
-            public string SpielerName { get; set; }
-            public string SpielerKlasse { get; set; }
 
-            public void Begrüßung()
-            {
-                Console.WriteLine($"Willkommen, {SpielerName}! Deine Klasse ist {SpielerKlasse}.");
-            }
+
+    // Gemeinsame Basis-Klasse
+    public class GameBase
+    {
+        protected string SpielerName { get; set; }
+        protected string SpielerKlasse { get; set; }
+
+        public GameBase(string spielerName, string spielerKlasse)
+        {
+            SpielerName = spielerName;
+            SpielerKlasse = spielerKlasse;
         }
-   
+
+        public GameBase()
+        {
+        }
+
+        public void Begrüßung()
+        {
+            Console.WriteLine($"Willkommen, {SpielerName}! Deine Klasse ist {SpielerKlasse}.");
+        }
+    }
+
 }

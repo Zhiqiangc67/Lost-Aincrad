@@ -1,46 +1,64 @@
-﻿using Lost_Aincrad;
-using System;
+﻿using System;
+using System.Threading;
 using Lost_Aincrad.Game;
-
 
 namespace Lost_Aincrad
 {
-
-
     public class CharacterAction : GameBase
     {
-        public static void Gegner()
+        // Konstruktor übernimmt den Namen und die Klasse vom Spieler
+        public CharacterAction(string spielerName, string spielerKlasse) : base(spielerName, spielerKlasse)
         {
-            Console.WriteLine("sie treffen auf einen Gegner");
+        }
+
+        public void Gegner()
+        {
+            Console.WriteLine("Sie treffen auf einen Gegner.");
             Console.Clear();
-            Console.WriteLine($"Hallo {new GameBase().SpielerName} ich werde Ihnen en Rätsel stellen, wenn Sie dieses Lösen werde ich Sie weiter lassen, wenn nicht werden Wir kämpfen");
-            Console.WriteLine("Drücken Sie eine beliebige Taste");
+            Console.WriteLine($"Hallo {SpielerName}, ich werde Ihnen ein Rätsel stellen. Wenn Sie es lösen, dürfen Sie weitergehen. Wenn nicht, werden wir kämpfen!");
+            Console.WriteLine("Drücken Sie eine beliebige Taste, um fortzufahren.");
             Console.ReadKey();
             Console.Clear();
-            Console.WriteLine("Wer ist Der Größte Sigma in Ganz Deutschland?");
-            string Lösung1 = Console.ReadLine();
-            string Sigmannat = "Sigmannat";
 
-            if (Lösung1.Trim().Equals(Sigmannat, StringComparison.OrdinalIgnoreCase))
+            Console.WriteLine("Wer ist der größte Sigma in ganz Deutschland?");
+            string lösung1 = Console.ReadLine();
+            string sigmannat = "Sigmannat";
 
+            if (lösung1.Trim().Equals(sigmannat, StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("Sie haben die Frage richtig beantwortet, Sie können weiter gehen");
+                Console.WriteLine("Sie haben die Frage richtig beantwortet! Sie können weitergehen.");
             }
             else
             {
-                Console.WriteLine("Sie haben die Frage falsch beantwortet, Sie müssen jetzt mit mir kämpfen");
-                Console.WriteLine("Wählen Sie Ihren Angriff");
+                Console.WriteLine("Sie haben die Frage falsch beantwortet. Sie müssen jetzt mit mir kämpfen!");
                 Thread.Sleep(3000);
-                Console.WriteLine("Nahkampf");
-                Thread.Sleep(3000);
-                Console.WriteLine("Fernkampf");
+
+                Console.WriteLine("Wählen Sie Ihren Angriff:");
+                Console.WriteLine("1. Nahkampf");
+                Console.WriteLine("2. Fernkampf");
                 Console.WriteLine("Was wählen Sie?");
-                string AuswahlAngriff = Console.ReadLine();
+                string auswahlAngriff = Console.ReadLine();
+
+                if (auswahlAngriff == "1")
+                {
+                    Console.WriteLine("Sie greifen mit Nahkampf an!");
+                }
+                else if (auswahlAngriff == "2")
+                {
+                    Console.WriteLine("Sie greifen mit Fernkampf an!");
+                }
+                else
+                {
+                    Console.WriteLine("Ungültige Auswahl. Der Gegner greift Sie an!");
+                }
             }
         }
+
         public static void Main1()
         {
-            Gegner(); // Die Methode "Gegner" wird aufgerufen
+            // Beispiel: Charakter erstellen und Aktion starten
+            var characterAction = new CharacterAction("Spieler1", "Krieger");
+            characterAction.Gegner(); // Die Methode "Gegner" wird aufgerufen
         }
     }
 }
