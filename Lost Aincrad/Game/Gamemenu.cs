@@ -5,7 +5,7 @@ using Lost_Aincrad.Game;
 namespace Lost_Aincrad
 {
     // GameMenu erbt von GameBase
-    internal class GameMenu : GameBase
+    internal class GameMenu : ObjectMenu
     {
         public static void Main() {
         GameMenu gm = new GameMenu("ich", "du");
@@ -106,6 +106,9 @@ namespace Lost_Aincrad
                     Console.WriteLine("Ungültige Eingabe. Bitte antworten Sie mit 'Ja' oder 'Nein'.");
                     Thread.Sleep(2000);
                 }
+                ZeigeOptionen();
+
+
             }
         }
     }
