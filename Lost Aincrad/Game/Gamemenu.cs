@@ -83,7 +83,7 @@ namespace Lost_Aincrad
             while (!bereitIstValid)
             {
                 Console.Clear();
-                Console.WriteLine("Sind Sie bereit für die Welt von Aincrad? (Ja/Nein)");
+                Console.WriteLine("Sind Sie bereit für die Welt von Aincrad? (ja/nein)");
 
                 string bereit = Console.ReadLine()?.Trim().ToLower();
 
