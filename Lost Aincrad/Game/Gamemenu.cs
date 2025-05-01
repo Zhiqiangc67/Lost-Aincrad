@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Threading;
 using Lost_Aincrad.Game;
+using LOST_Aincrad__experimental_;
 
 namespace Lost_Aincrad
 {
     // GameMenu erbt von GameBase
     internal class GameMenu : ObjectMenu
     {
-        public static void Main() {
-        GameMenu gm = new GameMenu("ich", "du");
+        public static void Main()
+        {
+            GameMenu gm = new GameMenu("ich", "du");
             gm.Start();
         }
         // Konstruktor, der die Parameter an die Basisklasse weitergibt
@@ -111,5 +113,13 @@ namespace Lost_Aincrad
 
             }
         }
+
+
+        private void ZeigeOptionen()
+        {
+            Console.WriteLine("Optionen werden angezeigt.");
+            ZeigeOptionen(new VerlasseneHütte(SpielerName, SpielerKlasse));
+        }
+
     }
 }
