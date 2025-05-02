@@ -24,26 +24,29 @@ namespace LOST_Aincrad__experimental_
 
             while (true)
             {
-                Console.Clear();
+                // Console.Clear();
                 Console.WriteLine($"{SpielerName}, du befindest dich am Spawn von Aincrad.");
                 Console.WriteLine("Wähle eine Richtung:");
                 Console.WriteLine("▶ Vorwärts (W) - Verlassene Hütte");
                 Console.WriteLine("▶ Rechts (D) - Brennender Wald");
-                Console.WriteLine("▶ Links (A) oder Zurück (S) - Noch nicht implementiert");
 
                 string bewegung = Console.ReadLine()?.ToUpper();
+                Console.WriteLine("#### eingabe ist " + bewegung);
 
                 if (bewegung == "D")
                 {
+                    Console.WriteLine("#### D ausgewählt");
                     DerBrennendeWald wald = new DerBrennendeWald(SpielerName, SpielerKlasse, HatWasserEimer);
                     wald.ZeigeBrennenderWald();
+                    HatWasserEimer = true; // Assuming water is always found after calling DerBrennendeWald
                 }
                 else if (bewegung == "W")
                 {
-                    VerlasseneHütte verlasseneHütte = new(SpielerName, SpielerKlasse);
-                    VerlasseneHütte huette = verlasseneHütte;
-                    huette.DieVerlassenHütte(); // Removed assignment to a bool variable since the method returns void  
-                    HatWasserEimer = true; // Assuming water is always found after calling DieVerlassenHütte  
+                    Console.WriteLine("#### W ausgewählt");
+                    Verlassenehuette huette = new Verlassenehuette(SpielerName, SpielerKlasse);
+                    // huette = verlasseneHütte;
+                    huette.dieVerlassenehuette(); // Removed assignment to a bool variable since the method returns void  
+
                 }
                 else
                 {
@@ -54,5 +57,3 @@ namespace LOST_Aincrad__experimental_
         }
     }
 }
-
-

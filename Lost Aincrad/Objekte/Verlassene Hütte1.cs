@@ -1,6 +1,3 @@
-
-
-
 namespace LOST_Aincrad__experimental_
 {
     internal class VerlasseneHütte
@@ -16,7 +13,24 @@ namespace LOST_Aincrad__experimental_
 
         internal void DieVerlassenHütte()
         {
+            Console.WriteLine("#### VetlasseneHütte1.cs");
+
             //ausgabe von VerlasseneHütte.cs
+        }
+
+        internal void ExploreHut()
+        {
+            //ausgabe von ExploreHut.cs
+        }
+
+        internal void dieVerlassenehuette()
+        {
+            Console.WriteLine("#### VetlasseneHütte1 v2.cs");
+            //ausgabe von Verlassenehuette.cs
         }
     }
 }
+
+
+
+

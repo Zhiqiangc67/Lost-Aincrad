@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading;
 using Lost_Aincrad.Game;
+using LOST_Aincrad__experimental_;
 
 namespace Lost_Aincrad
 {
-    public class CharacterAction : GameBase
+    internal class CharacterAction: GameBase
     {
+        public object SpielerName { get; private set; }
+
         // Konstruktor übernimmt den Namen und die Klasse vom Spieler
         public CharacterAction(string spielerName, string spielerKlasse) : base(spielerName, spielerKlasse)
         {
@@ -14,7 +17,7 @@ namespace Lost_Aincrad
         public void Gegner()
         {
             Console.WriteLine("Sie treffen auf einen Gegner.");
-            Console.Clear();
+            Console.ReadKey();
             Console.WriteLine($"Hallo {SpielerName}, ich werde Ihnen ein Rätsel stellen. Wenn Sie es lösen, dürfen Sie weitergehen. Wenn nicht, werden wir kämpfen!");
             Console.WriteLine("Drücken Sie eine beliebige Taste, um fortzufahren.");
             Console.ReadKey();

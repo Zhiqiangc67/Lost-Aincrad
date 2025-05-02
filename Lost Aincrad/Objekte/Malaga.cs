@@ -16,6 +16,3 @@ namespace LOST_Aincrad__experimental_
         }
     }
 }
-
-
-w

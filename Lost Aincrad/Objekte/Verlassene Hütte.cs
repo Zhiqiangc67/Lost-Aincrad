@@ -2,18 +2,16 @@ using System;
 
 namespace LOST_Aincrad__experimental_
 {
-    internal class AbandonedHut : ObjectMenu
+    internal class Verlassenehuette(string playerName, string playerClass) : Garten(playerName, playerClass)
     {
-        private bool _hasKey = false;  // Tracks if player defeated the mini-boss
+        private bool _hasKey = true;  // Tracks if player defeated the mini-boss
 
         public object PlayerName { get; private set; }
+        public string SpielerName { get; private set; }
+        public string SpielerKlasse { get; private set; }
 
-        public AbandonedHut(string playerName, string playerClass)
-            : base(playerName, playerClass)
-        {
-        }
+        public bool dieVerlassenehuette()
 
-        public bool ExploreHut()
         {
             while (true)
             {
@@ -24,72 +22,38 @@ namespace LOST_Aincrad__experimental_
                 Console.WriteLine("L - Links zum Garten");
                 Console.WriteLine("Z - Zurück zum Spawn");
 
-                var input = Console.ReadLine()?.ToUpper();
-
-                switch (input)
+                string bewegung = Console.ReadLine()?.ToUpper();
+                
+                if (bewegung == "W")
                 {
-                    case "L":
-                        ExploreGarden();
-                        break;
-
-                    case "W":
-                        if (TryEnterHut())
-                        {
-                            return true; // Returns if water bucket was found
-                        }
-                        break;
-
-                    case "Z":
-                        return false;
-
-                    default:
-                        Console.WriteLine("Ungültige Eingabe! (W/L/Z)");
-                        Console.ReadKey();
-                        break;
+                    Console.WriteLine("Sie betreten die Innere Verlassene Hütte");
+                    InnereVerlassenehuette huette = new InnereVerlassenehuette(SpielerName, SpielerKlasse);
+                    // huette = verlasseneHütte;
+                    huette.DieInnereVerlassenehuette(); // Removed assignment to a bool variable since the method returns void
                 }
+                else if (bewegung == "L")
+                {
+                    Console.WriteLine("Sie gehen jetzt in den Garten");
+                    DerGarten();
+                }
+                else
+                {
+                    // Wenn man was falsches schreibt soll sich das wiederholen
+                }
+
             }
         }
 
         private bool TryEnterHut()
         {
-            if (!_hasKey)
-            {
-                Console.WriteLine("\nDie Tür ist verschlossen! Du benötigst einen Schlüssel.");
-                Console.WriteLine("Hinweis: Besiege den Boss im Mini-Raum!");
-                Console.ReadKey();
-                return false;
-            }
-
-            Console.WriteLine("\nDu betrittst die dunkle Hütte...");
-            // Add hut exploration logic here
-            Console.WriteLine("Du findest einen Wassereimer!");
-            return true;
+            throw new NotImplementedException();
+            Console.WriteLine("dd");
         }
 
         private void ExploreGarden()
         {
-            try
-            {
-                Console.WriteLine("\nDu betrittst den verwilderten Garten...");
-                // Temporary implementation:
-                Console.WriteLine("Hier wächst nichts außer Unkraut.");
-                Console.ReadKey();
-
-                // When implemented:
-                // var garden = new Garden(PlayerName, PlayerClass);
-                // garden.Explore();
-            }
-            catch (NotImplementedException)
-            {
-                Console.WriteLine("Der Garten ist noch nicht zugänglich.");
-                Console.ReadKey();
-            }
+            Console.WriteLine("Du gehst in den Garten.");
         }
 
-        public void ReceiveKey()
-        {
-            _hasKey = true;
-            Console.WriteLine("\nDu hast den Schlüssel zur Hütte erhalten!");
-        }
     }
 }
