@@ -24,7 +24,7 @@ namespace Lost_Aincrad
 
             // Rätsel-Challenge mit Fluchtoption
             Console.WriteLine("\nWächter: 'Beantworte mein Rätsel oder verlasse den Kampf (Q)!'");
-            Console.WriteLine("Frage: Wer ist im Gegnerteam?");
+            Console.WriteLine("Frage: In Welcher Klasse ist Timon Szymanski und Zhi Qiang Chen?");
             Console.Write("Deine Antwort (oder Q zum Verlassen): ");
 
             var antwort = Console.ReadLine()?.Trim();
@@ -35,7 +35,7 @@ namespace Lost_Aincrad
                 return;
             }
 
-            if (string.Equals(antwort, "Jochen", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(antwort, "BFT31", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("\nWächter: 'Richtig! Du darfst weiterziehen.'");
                 hatschluessel = true;

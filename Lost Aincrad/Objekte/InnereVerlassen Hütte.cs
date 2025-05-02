@@ -75,7 +75,10 @@ namespace LOST_Aincrad__experimental_
             if (!_hasEnteredCellar)
             {
                 Console.WriteLine("\n=== ERFOLG ===");
+                Console.WriteLine("Hinter der Tür liegt ein Lebenslauf womit du den Bezug zur Welt Wiederherstellen Kannst..");
+                Console.ReadKey();
                 Console.WriteLine("Du bist Klug! Alle guten Dinge sind 3 und somit stichst du als Sieger Hervor");
+                Console.ReadKey();
                 Console.WriteLine("Glückwunsch! Du hast es in Diddys Keller geschafft!");
                 Console.WriteLine("\nDrücke eine Taste um fortzufahren...");
                 Console.ReadKey();
