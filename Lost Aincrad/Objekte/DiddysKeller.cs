@@ -18,7 +18,7 @@ namespace LOST_Aincrad__experimental_
 
         internal void BetreteKeller()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         internal void DerDiddysKeller()

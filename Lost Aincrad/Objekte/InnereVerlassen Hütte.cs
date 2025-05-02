@@ -4,14 +4,15 @@ namespace LOST_Aincrad__experimental_
 {
     internal class InnereVerlasseneHütte : Verlassenehuette
     {
-        private bool hatschluessel;
         private object SpielerName;
+        private bool _hasEnteredCellar; // Track if player has seen cellar message
 
         public object SpielerKlasse { get; private set; }
 
         public InnereVerlasseneHütte(string spielerName, string spielerKlasse)
             : base(spielerName, spielerKlasse)
         {
+            _hasEnteredCellar = false;
         }
 
         public void DieInnereVerlasseneHütte()
@@ -33,9 +34,8 @@ namespace LOST_Aincrad__experimental_
                 switch (eingabe)
                 {
                     case "W":
-                        if (VersucheKellerBetreten())
-                            return;
-                        break;
+                        KellerBetreten();
+                        return;
 
                     case "U":
                         ZeigeHüttenDetails();
@@ -58,26 +58,26 @@ namespace LOST_Aincrad__experimental_
             }
         }
 
-        private bool VersucheKellerBetreten()
+        private void KellerBetreten()
         {
-            if (!hatschluessel)
+            if (!_hasEnteredCellar)
             {
-                Console.WriteLine("\nDie Kellertür ist mit einem massiven Vorhängeschloss gesichert.");
-                Console.WriteLine("Du benötigst einen speziellen Schlüssel!");
-                Lötstation();
+                Console.WriteLine("\n=== ERFOLG ===");
+                Console.WriteLine("Glückwunsch! Du hast es in Diddys Keller geschafft!");
+                Console.WriteLine("Dieser Raum birgt viele Geheimnisse...");
+                Console.WriteLine("\nDrücke eine Taste um fortzufahren...");
                 Console.ReadKey();
-                return true;
+                _hasEnteredCellar = true;
             }
 
-            Console.WriteLine("\nMit dem Schlüssel öffnest du das Vorhängeschloss...");
+            Console.WriteLine("\nDu öffnest die Kellertür und steigst hinab...");
             var keller = new DiddysKeller2(SpielerName, SpielerKlasse, true);
             keller.BetreteKeller();
-            return true;
         }
 
         private void Lötstation()
         {
-           // throw new NotImplementedException();
+            // Empty implementation
         }
 
         private void ZeigeHüttenDetails()
@@ -89,12 +89,6 @@ namespace LOST_Aincrad__experimental_
             Console.WriteLine("- Eine funktionierende Öllampe");
             Console.WriteLine("\nDrücke eine Taste...");
             Console.ReadKey();
-        }
-
-        public void ErhalteKellerSchlüssel()
-        {
-            hatschluessel = true;
-            Console.WriteLine("\n[System] Du hast Diddys Keller-Schlüssel erhalten!");
         }
     }
 }
