@@ -5,7 +5,8 @@ namespace LOST_Aincrad__experimental_
     internal class InnereVerlasseneHütte : Verlassenehuette
     {
         private object SpielerName;
-        private bool _hasEnteredCellar; // Track if player has seen cellar message
+        private bool _hasEnteredCellar;
+        private int _entryAttempts = 0; // Track number of entry attempts
 
         public object SpielerKlasse { get; private set; }
 
@@ -20,7 +21,7 @@ namespace LOST_Aincrad__experimental_
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"{SpielerName}, du bist in der dunklen Hütte.");
+                Console.WriteLine($"{SpielerName}du bist in der dunklen Hütte.");
                 Console.WriteLine("Modrige Luft und knarzende Dielen umgeben dich.");
 
                 Console.WriteLine("\nWas möchtest du tun?");
@@ -35,7 +36,7 @@ namespace LOST_Aincrad__experimental_
                 {
                     case "W":
                         KellerBetreten();
-                        return;
+                        break;
 
                     case "U":
                         ZeigeHüttenDetails();
@@ -60,11 +61,22 @@ namespace LOST_Aincrad__experimental_
 
         private void KellerBetreten()
         {
+            _entryAttempts++;
+
+            if (_entryAttempts < 3)
+            {
+                Console.WriteLine("\nDie Kellertür gibt einen Widerstand...");
+                Console.WriteLine("Irgendwas scheint sie zu blockieren.");
+                Console.WriteLine("Was wohl helfen mag, alle dinge sind...");
+                Console.ReadKey();
+                return;
+            }
+
             if (!_hasEnteredCellar)
             {
                 Console.WriteLine("\n=== ERFOLG ===");
+                Console.WriteLine("Du bist Klug! Alle guten Dinge sind 3 und somit stichst du als Sieger Hervor");
                 Console.WriteLine("Glückwunsch! Du hast es in Diddys Keller geschafft!");
-                Console.WriteLine("Dieser Raum birgt viele Geheimnisse...");
                 Console.WriteLine("\nDrücke eine Taste um fortzufahren...");
                 Console.ReadKey();
                 _hasEnteredCellar = true;

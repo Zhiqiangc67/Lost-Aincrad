@@ -16,7 +16,7 @@ namespace LOST_Aincrad__experimental_
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"{PlayerName}, du stehst vor einer alten, verlassenen Hütte.");
+                Console.WriteLine($"{PlayerName}du stehst vor einer alten, verlassenen Hütte.");
                 Console.WriteLine("\nWas möchtest du tun?");
                 Console.WriteLine("W - Vorwärts gehen (Hütte betreten)");
                 Console.WriteLine("L - Links zum Garten");

@@ -26,6 +26,7 @@ namespace LOST_Aincrad__experimental_
             {
                 // Console.Clear();
                 Console.WriteLine($"{SpielerName}, du befindest dich am Spawn von Aincrad.");
+                Console.WriteLine("Dein Ziel wird es sein,den Diddy Raum zu erreichen. hierbei warten kleine Aufgaben auf dich");
                 Console.WriteLine("Wähle eine Richtung:");
                 Console.WriteLine("▶ Vorwärts (W) - Verlassene Hütte");
                 Console.WriteLine("▶ Rechts (D) - Brennender Wald");

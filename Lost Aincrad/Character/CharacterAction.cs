@@ -19,12 +19,12 @@ namespace Lost_Aincrad
         public void Gegner()
         {
             Console.Clear();
-            Console.WriteLine($"\n{SpielerName}, du triffst auf einen geheimnisvollen Wächter!");
+            Console.WriteLine($"\n{SpielerName}du triffst auf einen geheimnisvollen Wächter!");
             Console.ReadKey();
 
             // Rätsel-Challenge mit Fluchtoption
             Console.WriteLine("\nWächter: 'Beantworte mein Rätsel oder verlasse den Kampf (Q)!'");
-            Console.WriteLine("Frage: Wer ist der größte Sigma in ganz Deutschland?");
+            Console.WriteLine("Frage: Wer ist im Gegnerteam?");
             Console.Write("Deine Antwort (oder Q zum Verlassen): ");
 
             var antwort = Console.ReadLine()?.Trim();
@@ -35,7 +35,7 @@ namespace Lost_Aincrad
                 return;
             }
 
-            if (string.Equals(antwort, "Sigmannat", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(antwort, "Jochen", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("\nWächter: 'Richtig! Du darfst weiterziehen.'");
                 hatschluessel = true;
