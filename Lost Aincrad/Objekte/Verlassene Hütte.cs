@@ -20,16 +20,16 @@ namespace LOST_Aincrad__experimental_
                 Console.WriteLine("\nWas möchtest du tun?");
                 Console.WriteLine("W - Vorwärts gehen (Hütte betreten)");
                 Console.WriteLine("L - Links zum Garten");
-                Console.WriteLine("Z - Zurück zum Spawn");
+                Console.WriteLine("Z - Verlassen");
 
                 string bewegung = Console.ReadLine()?.ToUpper();
                 
                 if (bewegung == "W")
                 {
                     Console.WriteLine("Sie betreten die Innere Verlassene Hütte");
-                    InnereVerlassenehuette huette = new InnereVerlassenehuette(SpielerName, SpielerKlasse);
+                    InnereVerlasseneHütte huette = new InnereVerlasseneHütte(SpielerName, SpielerKlasse);
                     // huette = verlasseneHütte;
-                    huette.DieInnereVerlassenehuette(); // Removed assignment to a bool variable since the method returns void
+                    huette.DieInnereVerlasseneHütte(); // Removed assignment to a bool variable since the method returns void
                 }
                 else if (bewegung == "L")
                 {
@@ -38,7 +38,8 @@ namespace LOST_Aincrad__experimental_
                 }
                 else
                 {
-                    // Wenn man was falsches schreibt soll sich das wiederholen
+                    Console.WriteLine("Du verlässt das Programm");
+                    Environment.Exit(0);
                 }
 
             }

@@ -1,52 +1,84 @@
 using System;
-using LOST_Aincrad__experimental_;  // Optional, wenn andere Klassen daraus verwendet werden
+using LOST_Aincrad__experimental_;
 
 namespace LOST_Aincrad__experimental_
 {
     internal class Garten : VerlasseneHütte
     {
+        private bool hatEimer = false; // Neues Feld für Eimer-Status
+
         public Garten(string spielerName, string spielerKlasse)
             : base(spielerName, spielerKlasse)
         {
-            // Optional: Initialisierungen
+            SpielerName = spielerName;
+            SpielerKlasse = spielerKlasse;
         }
 
-        public string SpielerName { get; private set; }
-        public string SpielerKlasse { get; private set; }
+        public string SpielerName { get; }
+        public string SpielerKlasse { get; }
 
         public void DerGarten()
         {
-            Console.Clear();
-            Console.WriteLine("Willkommen im Garten");
-            Console.WriteLine("Sie können hier Wasser holen wenn Sie einen Eimer besitzen 'E' "); //Eimer findet man in Diddys Keller
-            Console.WriteLine("Sie können geradeaus gehen 'W'");
-            Console.WriteLine("Sie können zurück in die Verlassene Hütte gehen 'S'");
-            string Richtung = Console.ReadLine();
-            if (Richtung == "W")
+            while (true)
             {
-                Console.WriteLine("Sie gehen jetzt gerade aus 'W'");
-                MiniRaum raum = new MiniRaum(SpielerName, SpielerKlasse);
-                // huette = verlasseneHütte;
-                raum.DerMiniRaum(); // Removed assignment to a bool variable since the method returns void
+                Console.Clear();
+                Console.WriteLine("=== Willkommen im Garten ===");
+                Console.WriteLine("\nWas möchtest du tun?");
 
+                // Verfügbare Aktionen anzeigen
+                Console.WriteLine("W - Vorwärts gehen");
+                if (hatEimer) Console.WriteLine("E - Wasser holen");
+                Console.WriteLine("S - Zurück zur Hütte");
+                Console.WriteLine("Q - Sofort verlassen");
+                Console.WriteLine("I - Inventar anzeigen");
 
-            }
-            else if (Richtung == "E")
-            {
-                // wenn man item eimer hat dann bekommt man das item wassereimer
-            }
-            else if (Richtung == "S")
-            {
-                Console.WriteLine("Sie gehen jetzt zurück 'S'");
-                dieVerlassenehuette();
-            }
-            else
-            {
-                Console.WriteLine("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
-                Console.ReadKey();
-            }
+                Console.Write("\nAuswahl: ");
+                var eingabe = Console.ReadLine()?.ToUpper();
 
-            
+                switch (eingabe)
+                {
+                    case "W":
+                        Console.WriteLine("\nDu gehst vorwärts...");
+                        new MiniRaum(SpielerName, SpielerKlasse).DerMiniRaum();
+                        return;
+
+                    case "E" when hatEimer:
+                        Console.WriteLine("\nDu füllst den Eimer mit Wasser.");
+                        Console.WriteLine("+ Wassereimer erhalten!");
+                        // Hier könnte man ein Wassereimer-Item hinzufügen
+                        Console.ReadKey();
+                        break;
+
+                    case "E":
+                        Console.WriteLine("\n[!] Du benötigst einen Eimer!");
+                        Console.WriteLine("Finde einen Eimer im Keller.");
+                        Console.ReadKey();
+                        break;
+
+                    case "S":
+                    case "Q":
+                        Console.WriteLine("\nDu verlässt den Garten...");
+                        dieVerlassenehuette();
+                        return;
+
+                    case "I":
+                        Console.WriteLine("\n=== Dein Inventar ===");
+                        Console.WriteLine(hatEimer ? "[✓] Eimer" : "[✗] Kein Eimer");
+                        Console.ReadKey();
+                        break;
+
+                    default:
+                        Console.WriteLine("\nUngültige Eingabe! Bitte versuche es erneut.");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+
+        // Methode um Eimer-Status zu setzen (kann von anderen Klassen aufgerufen werden)
+        public void SetEimerStatus(bool status)
+        {
+            hatEimer = status;
         }
     }
 }

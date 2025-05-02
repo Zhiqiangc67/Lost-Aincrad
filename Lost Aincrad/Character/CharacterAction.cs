@@ -1,67 +1,114 @@
-﻿using System;
+﻿using Lost_Aincrad.Game;
+using System;
 using System.Threading;
-using Lost_Aincrad.Game;
-using LOST_Aincrad__experimental_;
 
 namespace Lost_Aincrad
 {
-    internal class CharacterAction: GameBase
+    internal class CharacterAction : GameBase
     {
+        private const bool V = false;
+        int schaden;
+        private bool hatschluessel;
+
         public object SpielerName { get; private set; }
 
-        // Konstruktor übernimmt den Namen und die Klasse vom Spieler
         public CharacterAction(string spielerName, string spielerKlasse) : base(spielerName, spielerKlasse)
         {
         }
 
         public void Gegner()
         {
-            Console.WriteLine("Sie treffen auf einen Gegner.");
-            Console.ReadKey();
-            Console.WriteLine($"Hallo {SpielerName}, ich werde Ihnen ein Rätsel stellen. Wenn Sie es lösen, dürfen Sie weitergehen. Wenn nicht, werden wir kämpfen!");
-            Console.WriteLine("Drücken Sie eine beliebige Taste, um fortzufahren.");
-            Console.ReadKey();
             Console.Clear();
+            Console.WriteLine($"\n{SpielerName}, du triffst auf einen geheimnisvollen Wächter!");
+            Console.ReadKey();
 
-            Console.WriteLine("Wer ist der größte Sigma in ganz Deutschland?");
-            string lösung1 = Console.ReadLine();
-            string sigmannat = "Sigmannat";
+            // Rätsel-Challenge mit Fluchtoption
+            Console.WriteLine("\nWächter: 'Beantworte mein Rätsel oder verlasse den Kampf (Q)!'");
+            Console.WriteLine("Frage: Wer ist der größte Sigma in ganz Deutschland?");
+            Console.Write("Deine Antwort (oder Q zum Verlassen): ");
 
-            if (lösung1.Trim().Equals(sigmannat, StringComparison.OrdinalIgnoreCase))
+            var antwort = Console.ReadLine()?.Trim();
+            if (string.Equals(antwort, "Q", StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("Sie haben die Frage richtig beantwortet! Sie können weitergehen.");
+                Console.WriteLine("\nDu hast den Kampf verlassen.");
+                Console.ReadKey();
+                return;
+            }
+
+            if (string.Equals(antwort, "Sigmannat", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("\nWächter: 'Richtig! Du darfst weiterziehen.'");
+                hatschluessel = true;
+                Console.ReadKey();
+                return;
+            }
+
+            // Kampfsystem mit Fluchtoption
+            int spielerHP = 100;
+            int gegnerHP = 75;
+            var zufall = new Random();
+
+            while (spielerHP > 0 && gegnerHP > 0)
+            {
+                Console.Clear();
+                Console.WriteLine($"{SpielerName}: {spielerHP} HP  |  Wächter: {gegnerHP} HP\n");
+                Console.WriteLine("Aktionen: 1-Nahkampf | 2-Fernkampf | Q-Verlassen");
+
+                var eingabe = Console.ReadLine()?.ToUpper();
+
+                if (eingabe == "Q")
+                {
+                    Console.WriteLine("\nDu hast den Kampf verlassen.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                switch (eingabe)
+                {
+                    case "1":
+                        schaden = zufall.Next(20, 31);
+                        gegnerHP -= schaden;
+                        Console.WriteLine($"\nNahkampfangriff! {schaden} Schaden!");
+                        break;
+                    case "2":
+                        schaden = zufall.Next(15, 26);
+                        gegnerHP -= schaden;
+                        Console.WriteLine($"\nFernkampfangriff! {schaden} Schaden!");
+                        break;
+                    default:
+                        Console.WriteLine("\nUngültige Eingabe - Runde verpasst!");
+                        break;
+                }
+
+                if (gegnerHP > 0)
+                {
+                    schaden = zufall.Next(10, 21);
+                    spielerHP -= schaden;
+                    Console.WriteLine($"\nWächter greift an! {schaden} Schaden!");
+                    Console.ReadKey();
+                }
+            }
+
+            if (spielerHP > 0)
+            {
+                hatschluessel = true;
+                Console.WriteLine("\nGlückwunsch! Wächter besiegt! Schlüssel erhalten!");
             }
             else
             {
-                Console.WriteLine("Sie haben die Frage falsch beantwortet. Sie müssen jetzt mit mir kämpfen!");
-                Thread.Sleep(3000);
-
-                Console.WriteLine("Wählen Sie Ihren Angriff:");
-                Console.WriteLine("1. Nahkampf");
-                Console.WriteLine("2. Fernkampf");
-                Console.WriteLine("Was wählen Sie?");
-                string auswahlAngriff = Console.ReadLine();
-
-                if (auswahlAngriff == "1")
-                {
-                    Console.WriteLine("Sie greifen mit Nahkampf an!");
-                }
-                else if (auswahlAngriff == "2")
-                {
-                    Console.WriteLine("Sie greifen mit Fernkampf an!");
-                }
-                else
-                {
-                    Console.WriteLine("Ungültige Auswahl. Der Gegner greift Sie an!");
-                }
+                Console.WriteLine("\nNiederlage! Zurück zum Startpunkt.");
             }
+            Console.ReadKey();
         }
 
-        public static void Main1()
+        public virtual bool HatSchluessel()
         {
-            // Beispiel: Charakter erstellen und Aktion starten
-            var characterAction = new CharacterAction("Spieler1", "Krieger");
-            characterAction.Gegner(); // Die Methode "Gegner" wird aufgerufen
+            return hatschluessel;
+        }
+
+        public void SetSchluessel(bool status)
+        {
+            hatschluessel = status;
         }
     }
 }
